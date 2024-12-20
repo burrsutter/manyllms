@@ -3,7 +3,7 @@
 Trying to see if I can run 6 model servers on my laptop
 
 
-## Prereqs 6 Ollama instances - a specific model per ollama instance
+## 6 Ollama instances - a specific model per ollama instance
 
 ```
 OLLAMA_MAX_LOADED_MODELS=1 OLLAMA_HOST=127.0.0.1:11430 ollama serve
