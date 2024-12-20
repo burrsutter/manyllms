@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Many LLMs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+        }
+        .output.hidden {
+            display: none;
+        }
+        #userInput {
+            width: 80%;
+            box-sizing: border-box;
+        }        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Many LLMs</h1>
+        <div>
+            <label for="userInput">Prompt:</label>
+            <input type="text" id="userInput" />
+            <button id="submitButton">Go</button>
+        </div>
+        <h2>Outputs</h2>
+        <div id="outputContainer">
+            phi3.5:3.8b-mini-instruct-q4_K_M
+            <div class="output" id="output1">Response 1</div>
+            mistral:7b-instruct-q4_K_M
+            <div class="output" id="output2">Response 2</div>
+            llama3.2:3b-instruct-q4_K_M
+            <div class="output" id="output3">Response 3</div>
+            qwen2.5:7b-instruct-q4_K_M
+            <div class="output" id="output4">Response 4</div>
+            granite3-dense:8b-instruct-q4_K_M
+            <div class="output" id="output5">Response 5</div>
+            gemma2:2b-instruct-q4_K_M
+            <div class="output" id="output6">Response 6</div>
+        </div>
+    </div>
+    <script>
+        
+        async function handleSubmit() {    
+            const inputValue = document.getElementById("userInput").value.trim();
+
+            if (!inputValue) {
+                alert("Input cannot be blank. Please enter something.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/endpoint?input=${encodeURIComponent(inputValue)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+
+
+                const outputs = document.querySelectorAll(".output");
+                outputs.forEach((output, index) => {
+                    output.textContent = data[index] ? data[index] : `Output Box ${index + 1}: No data`;
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                const outputs = document.querySelectorAll(".output");
+                outputs.forEach((output, index) => {
+                    output.textContent = `Output Box ${index + 1}: Error fetching data`;
+                });
+            }
+        }
+
+        document.getElementById("submitButton").addEventListener("click", handleSubmit);
+        document.getElementById("userInput").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                handleSubmit();
+            }
+        });        
+    </script>
+</body>
+</html>

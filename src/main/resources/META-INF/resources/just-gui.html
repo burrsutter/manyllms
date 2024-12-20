@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Many LLMs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+        }
+        .output.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Many LLMs</h1>
+        <div>
+            <label for="userInput">Prompt:</label>
+            <input type="text" id="userInput" />
+            <button id="submitButton">Submit</button>
+        </div>
+        <h2>Outputs</h2>
+        <div id="outputContainer">
+            <div class="output" id="output1">Output Box 1</div>
+            <div class="output" id="output2">Output Box 2</div>
+            <div class="output" id="output3">Output Box 3</div>
+            <div class="output" id="output4">Output Box 4</div>
+            <div class="output" id="output5">Output Box 5</div>
+            <div class="output" id="output6">Output Box 6</div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function () {
+            const inputValue = document.getElementById("userInput").value;
+            const outputs = document.querySelectorAll(".output");
+
+            outputs.forEach((output, index) => {
+                output.textContent = `Output Box ${index + 1}: ${inputValue}`;
+            });
+        });
+    </script>
+</body>
+</html>
